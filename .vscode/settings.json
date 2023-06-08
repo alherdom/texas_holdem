@@ -1,0 +1,9 @@
+{
+    "git.ignoreLimitWarning": true,
+    "terminal.explorerKind": "integrated",
+    "python.analysis.typeCheckingMode": "off",
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "python.formatting.provider": "none"
+}

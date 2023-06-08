@@ -2,7 +2,7 @@
 
 ### TAREA EVALUABLE
 
-(./images/poker.svg)
+<img src = "img/poker.svg">
 
 ## Objetivo
 
