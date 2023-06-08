@@ -32,9 +32,6 @@ class Card:
     def __lt__(self, other: Card) -> bool:
         return self.cmp_value == min(self.cmp_value, other.cmp_value)
     
-new_card = Card('A♠')
-print(new_card)
-
 class Hand:
     HIGH_CARD = 1
     ONE_PAIR = 2
@@ -46,5 +43,16 @@ class Hand:
     FOUR_OF_A_KIND = 8
     STRAIGHT_FLUSH = 9
     
-    def __init__(self) -> None:
-        self.cat = 0
+    def __init__(self, player_cards: list[Card]) -> None:
+        self.player_cards = player_cards
+    
+    def __repr__(self) -> str:
+        return ",".join(str(card) for card in self.player_cards)
+    
+    def get_best_hand(self) -> Hand:
+        pass
+
+
+cards_list = [Card('A❤'), Card('9❤'), Card('K❤'), Card('K♠'), Card('A◆')]
+new_hand = Hand(cards_list)
+print(new_hand)
