@@ -53,6 +53,7 @@ class Hand:
     
     def get_best_hand(self) -> Hand:
         values = []
+        values = sorted(values)
         suits = []
         dist_values = set(values)
         dist_suits = set(suits)
@@ -69,14 +70,16 @@ class Hand:
             if values.count(value) == 4:
                 self.cat = Hand.FOUR_OF_A_KIND
                 break
-            # THREE OF A KIND
+            # THREE OF A KIND or FULL HOUSE
             if values.count(value) == 3:
-                self.cat = Hand.THREE_OF_A_KIND # PUEDE SER UN FULL?
-        # FALTA TRIO Y DOBLE PAREJA, SE PISAN CON EL SET
+                if values[3:].count(value) == 2:
+                    self.cat = Hand.FULL_HOUSE
+                else:
+                    self.cat = Hand.THREE_OF_A_KIND
+
         # STRAIGHT FLUSH
         if max(values) - min(values) == 4 and len(dist_values) == 5 and len(dist_suits) == 1:
             self.cat = Hand.STRAIGHT
-        # FU
         # FLUSH
         if len_dist_suits == 1:
             self.cat = Hand.FLUSH
@@ -92,6 +95,6 @@ class Hand:
         # HIGH CARD
         self.cat = Hand.HIGH_CARD
         
-new_card = Card('A◆')
+new_card = Card('K◆')
 print(new_card)
 print(new_card.cmp_value)
