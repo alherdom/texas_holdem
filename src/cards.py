@@ -1,4 +1,5 @@
 from __future__ import annotations
+import helpers
 
 class Card:
     GLYPHS = {
@@ -7,7 +8,7 @@ class Card:
         '❤':'🂱🂲🂳🂴🂵🂶🂷🂸🂹🂺🂻🂽🂾',
         '♠':'🂡🂢🂣🂤🂥🂦🂧🂨🂩🂪🂫🂭🂮'
         }
-    SYMBOLS = ('2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A')
+    SYMBOLS = ('A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K')
     A_VALUE = 1
     K_VALUE = 13
     
@@ -19,11 +20,18 @@ class Card:
     def __repr__(self) -> str:
         return Card.GLYPHS[self.suit][self.value -1]
     
+    def is_ace(self) -> bool:
+        return self.value == Card.A_VALUE
+    
+    @property
+    def cmp_value(self) -> int:
+        return int(self.value) if not self.is_ace() else Card.A_VALUE + Card.K_VALUE
+    
     def __eq__(self, other: Card) -> bool:
-        return self.cmp_value == other.cmp_value and self.suit == other.suit
+        return self.value == other.value and self.suit == other.suit
     
     def __lt__(self, other: Card) -> bool:
-        return self.cmp_value == min(self.cmp_value, other.cmp_value)
+        return self.value == min(self.value, other.value)
     
 class Hand:
     HIGH_CARD = 1
@@ -50,7 +58,9 @@ class Hand:
         dist_suits = set(suits)
         len_dist_values = len(dist_values)
         len_dist_suits = len(dist_suits)
-        for card in self.player_cards:
+        cards_combinations = helpers.combinations(self.player_cards, 5)
+
+        for card in cards_combinations:
             values.append(card.value)
             suits.append(card.suit)
         
@@ -58,26 +68,30 @@ class Hand:
             # FOR OF A KIND
             if values.count(value) == 4:
                 self.cat = Hand.FOUR_OF_A_KIND
+                break
             # THREE OF A KIND
             if values.count(value) == 3:
-                self.cat = Hand.THREE_OF_A_KIND
-            # TWO PAIR
-            if values.count(value) == 2:
-                values.remove(value)
-                if values.count(value) == 2:
-                    self.cat = Hand.ONE_PAIR
-        
+                self.cat = Hand.THREE_OF_A_KIND # PUEDE SER UN FULL?
+        # FALTA TRIO Y DOBLE PAREJA, SE PISAN CON EL SET
         # STRAIGHT FLUSH
         if max(values) - min(values) == 4 and len(dist_values) == 5 and len(dist_suits) == 1:
             self.cat = Hand.STRAIGHT
+        # FU
         # FLUSH
         if len_dist_suits == 1:
             self.cat = Hand.FLUSH
         # STRAIGHT
         if max(values) - min(values) == 4 and len(dist_values) == 5:
             self.cat = Hand.STRAIGHT
+        # TOW PAIR
+        if len_dist_values == 3:
+            self.cat = Hand.TWO_PAIR
         # ONE PAIR
-        if len_dist_values == 6:
+        if len_dist_values == 4:
             self.cat = Hand.ONE_PAIR
         # HIGH CARD
         self.cat = Hand.HIGH_CARD
+        
+new_card = Card('A◆')
+print(new_card)
+print(new_card.cmp_value)
