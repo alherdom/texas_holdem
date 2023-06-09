@@ -72,7 +72,7 @@ class Hand:
                 break
             # THREE OF A KIND or FULL HOUSE
             if values.count(value) == 3:
-                if values[3:].count(value) == 2:
+                if values.count(value[4]) == 2:
                     self.cat = Hand.FULL_HOUSE
                 else:
                     self.cat = Hand.THREE_OF_A_KIND
