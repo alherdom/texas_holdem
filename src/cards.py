@@ -69,7 +69,7 @@ class Hand:
             # FOR OF A KIND
             if values.count(value) == 4:
                 self.cat = Hand.FOUR_OF_A_KIND
-                break
+                
             # THREE OF A KIND or FULL HOUSE
             if values.count(value) == 3:
                 if values.count(value[4]) == 2:
