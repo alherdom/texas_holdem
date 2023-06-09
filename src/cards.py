@@ -69,7 +69,6 @@ class Hand:
             # FOR OF A KIND
             if values.count(value) == 4:
                 self.cat = Hand.FOUR_OF_A_KIND
-                
             # THREE OF A KIND or FULL HOUSE
             if values.count(value) == 3:
                 if values.count(value[4]) == 2:
@@ -79,7 +78,7 @@ class Hand:
 
         # STRAIGHT FLUSH
         if max(values) - min(values) == 4 and len(dist_values) == 5 and len(dist_suits) == 1:
-            self.cat = Hand.STRAIGHT
+            self.cat = Hand.STRAIGHT_FLUSH
         # FLUSH
         if len_dist_suits == 1:
             self.cat = Hand.FLUSH
