@@ -44,56 +44,41 @@ class Hand:
     FOUR_OF_A_KIND = 8
     STRAIGHT_FLUSH = 9
     
-    def __init__(self, player_cards: list[Card]) -> None:
-        self.player_cards = player_cards
+    def __init__(self, cards: list[Card]) -> None:
         self.cat = 1
+        self.hand = cards
+    
+    def __getitem__(self, index: int) -> Card:
+        return self.hand[index]
+
+    def __setitem__(self, index: int, item: int) -> None:
+        self.hand[index] = item
+    
+    def __len__(self) -> int:
+        return len(self.hand)
+    
+    def __iter__(self) -> HandIterator:
+        return HandIterator(self)
     
     def __repr__(self) -> str:
-        return ",".join(str(card) for card in self.player_cards)
+        return " ".join(str(card) for card in self.hand)
+
+class HandIterator:
+    def __init__(self, hand: Hand):
+        self.hand = hand
+        self.counter = 0
+
+    def __next__(self) -> int:
+        if self.counter >= len(self.hand):
+            raise StopIteration
+        item = self.hand[self.counter]
+        self.counter += 1
+        return item
     
-    def get_best_hand(self) -> Hand:
-        values = []
-        values = sorted(values)
-        suits = []
-        dist_values = set(values)
-        dist_suits = set(suits)
-        len_dist_values = len(dist_values)
-        len_dist_suits = len(dist_suits)
-        cards_combinations = helpers.combinations(self.player_cards, 5)
-
-        for card in cards_combinations:
-            values.append(card.value)
-            suits.append(card.suit)
-        
-        for value in values:
-            # FOR OF A KIND
-            if values.count(value) == 4:
-                self.cat = Hand.FOUR_OF_A_KIND
-            # THREE OF A KIND or FULL HOUSE
-            if values.count(value) == 3:
-                if values.count(value[4]) == 2:
-                    self.cat = Hand.FULL_HOUSE
-                else:
-                    self.cat = Hand.THREE_OF_A_KIND
-
-        # STRAIGHT FLUSH
-        if max(values) - min(values) == 4 and len(dist_values) == 5 and len(dist_suits) == 1:
-            self.cat = Hand.STRAIGHT_FLUSH
-        # FLUSH
-        if len_dist_suits == 1:
-            self.cat = Hand.FLUSH
-        # STRAIGHT
-        if max(values) - min(values) == 4 and len(dist_values) == 5:
-            self.cat = Hand.STRAIGHT
-        # TOW PAIR
-        if len_dist_values == 3:
-            self.cat = Hand.TWO_PAIR
-        # ONE PAIR
-        if len_dist_values == 4:
-            self.cat = Hand.ONE_PAIR
-        # HIGH CARD
-        self.cat = Hand.HIGH_CARD
-        
-new_card = Card('K◆')
+new_card = Card('A❤')
 print(new_card)
-print(new_card.cmp_value)
+
+new_hand = Hand([Card('A❤'), Card('10❤'), Card('A♠'), Card('Q❤'), Card('K♣')])
+print(new_hand)
+for card in new_hand:
+    print(card.cmp_value)
