@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+
 class Card:
     GLYPHS = {
         '♣':'🃑🃒🃓🃔🃕🃖🃗🃘🃙🃚🃛🃝🃞',
@@ -34,6 +35,7 @@ class Card:
     def __lt__(self, other: Card) -> bool:
         return self.value == min(self.value, other.value)
 
+
 class Hand:
     HIGH_CARD = 1
     ONE_PAIR = 2
@@ -64,6 +66,7 @@ class Hand:
     
     def __contains__(self, card: Card):
         return f'{card}' in [f'{card}' for card in self.hand]
+
 
 class HandIterator:
     def __init__(self, hand: Hand):

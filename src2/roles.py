@@ -24,7 +24,7 @@ class Player:
     def __repr__(self) -> str:
         return self.name
         
-    def get_best_hand(self) -> tuple: # type: ignore
+    def get_info_best_hand(self) -> tuple: # type: ignore
         values = []
         suits = []
         card_combinations = list(combinations(self.private_common_cards, n=5))
@@ -63,7 +63,7 @@ class Player:
             return value, suit, Hand.HIGH_CARD
        
     def get_cat_rank(self):
-        values, suits, cat = self.get_best_hand()
+        values, suits, cat = self.get_info_best_hand()
         match cat:
             case Hand.STRAIGHT_FLUSH:
                 return str(max(values))
@@ -86,7 +86,7 @@ class Player:
         
     def create_hand(self) -> Hand:
         hand_cards = []
-        values, suits, cat = self.get_best_hand()
+        values, suits, cat = self.get_info_best_hand()
         for value, suit in zip(values, suits):
             card_value = Card.SYMBOLS[value - 1]
             hand_cards.append(Card(card_value+suit))
