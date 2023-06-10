@@ -1,6 +1,5 @@
-from card import Card
-from hand import Hand
 from helpers import combinations
+from cards import Card, Hand
 
 class Player:
     def __init__(self, name: str):
@@ -16,11 +15,14 @@ class Player:
         self.common_cards = common_cards
     
     @property
-    def private_common_cards(self):
+    def private_common_cards(self) -> list:
         return self.private_cards + self.common_cards
     
-    def __str__(self):
-        return f'{self.name}'
+    def __contains__(self, card: Card):
+        return f'{card}' in [f'{card}' for card in self.hand]
+    
+    def __repr__(self) -> str:
+        return self.name
         
     def get_best_hand(self) -> tuple: # type: ignore
         values = []
@@ -64,25 +66,25 @@ class Player:
         values, suits, cat = self.get_best_hand()
         match cat:
             case Hand.STRAIGHT_FLUSH:
-                return max(values)
+                return str(max(values))
             case Hand.FOUR_OF_A_KIND:
-                return max(values)
+                return str(max(values))
             case Hand.FULL_HOUSE:
-                return tuple(set(values))
+                return tuple(str(v) for v in values)
             case Hand.FLUSH:
-                return max(values)
+                return str(max(values))
             case Hand.STRAIGHT:
-                return max(values)
+                return str(max(values))
             case Hand.THREE_OF_A_KIND:
-                return max(values)
+                return str(max(values))
             case Hand.TWO_PAIR:
-                return tuple(set(values))
+                return tuple(str(v) for v in values)
             case Hand.ONE_PAIR:
-                return max(values)
+                return str(max(values))
             case Hand.HIGH_CARD:
-                return max(values)
+                return str(max(values))
         
-    def create_hand(self):
+    def create_hand(self) -> Hand:
         hand_cards = []
         values, suits, cat = self.get_best_hand()
         for value, suit in zip(values, suits):
@@ -93,9 +95,9 @@ class Player:
         new_hand.cat_rank = self.get_cat_rank()
         return new_hand
         
-new_player = Player('Player 1')
-print(new_player)
-new_player.set_common_cards([Card('A♣'), Card('K❤'), Card('K◆'), Card('Q◆'), Card('9♠')])
-new_player.set_private_cards([Card('K♠'), Card('K♣')])
-print(new_player.get_best_hand())
-print(new_player.create_hand())
+# new_player = Player('Player 1')
+# print(new_player)
+# new_player.set_common_cards([Card('A♣'), Card('K❤'), Card('K◆'), Card('Q◆'), Card('9♠')])
+# new_player.set_private_cards([Card('K♠'), Card('K♣')])
+# print(new_player.get_best_hand())
+# print(new_player.create_hand())
