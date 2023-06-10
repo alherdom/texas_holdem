@@ -59,7 +59,29 @@ class Player:
             if len_set_value == 4:
                 return value, suit, Hand.ONE_PAIR
             return value, suit, Hand.HIGH_CARD
-    
+       
+    def get_cat_rank(self):
+        values, suits, cat = self.get_best_hand()
+        match cat:
+            case Hand.STRAIGHT_FLUSH:
+                return max(values)
+            case Hand.FOUR_OF_A_KIND:
+                return max(values)
+            case Hand.FULL_HOUSE:
+                return tuple(set(values))
+            case Hand.FLUSH:
+                return max(values)
+            case Hand.STRAIGHT:
+                return max(values)
+            case Hand.THREE_OF_A_KIND:
+                return max(values)
+            case Hand.TWO_PAIR:
+                return tuple(set(values))
+            case Hand.ONE_PAIR:
+                return max(values)
+            case Hand.HIGH_CARD:
+                return max(values)
+        
     def create_hand(self):
         hand_cards = []
         values, suits, cat = self.get_best_hand()
@@ -68,7 +90,7 @@ class Player:
             hand_cards.append(Card(card_value+suit))
         new_hand = Hand(hand_cards)
         new_hand.cat = cat
-        new_hand.cat_rank = 13
+        new_hand.cat_rank = self.get_cat_rank()
         return new_hand
         
 new_player = Player('Player 1')
