@@ -44,15 +44,15 @@ class Player:
                         return Hand(combination) #'FULL HOUSE'
                     else:
                         return Hand(combination) #'THREE'
-            if max(values) - min(values) == 4 and len(dist_values) == 5 and len(dist_suits) == 1:
-                return Hand(combination) #'STRAIGHT_FLUSH'
-            if len_dist_suits == 1:
-                return Hand(combination) #'FLUSH'
-            if max(values) - min(values) == 4 and len(dist_values) == 5:
-                return Hand(combination) #'STRAIGHT'
-            if len_dist_values == 3:
-                return Hand(combination) #'TWO_PAIR'
-            if len_dist_values == 4:
-                return Hand(combination) #'ONE_PAIR'
-            else:
-                return Hand(combination) #'HIGH_CARD'
+                if (values[0]) - (values[-1]) == 4 and len(dist_values) == 5 and len(dist_suits) == 1:
+                    return Hand(combination) #'STRAIGHT_FLUSH'
+                if len_dist_suits == 1:
+                    return Hand(combination) #'FLUSH'
+                if (values[0]) - (values[-1]) == 4 and len(dist_values) == 5:
+                    return Hand(combination) #'STRAIGHT'
+                if len_dist_values == 3:
+                    return Hand(combination) #'TWO_PAIR'
+                if len_dist_values == 4:
+                    return Hand(combination) #'ONE_PAIR'
+                else:
+                    return Hand(combination) #'HIGH_CARD'

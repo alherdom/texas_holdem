@@ -9,8 +9,7 @@ def get_winner(players: list[Player], common_cards: list[Card], private_cards: l
     player2.set_common_cards(common_cards)
     hand1 = player1.get_hand()
     hand2 = player2.get_hand()
-    hand = [Card('5❤'), Card('8◆'), Card('K◆'), Card('5♠'), Card('10♠')]
-    return players[0].name, Hand(hand)
+    return player1, hand1
 
 # players = [Player('Player 1'), Player('Player 2')]
 # common_cards = [Card('4◆'), Card('8◆'), Card('K◆'), Card('5♠'), Card('10♠')]
