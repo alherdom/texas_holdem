@@ -2,32 +2,22 @@ from helpers import combinations
 from cards import Card, Hand
 
 class Player:
-    def __init__(self, name: str):
+    def __init__(self, name: str, private_cards: list[Card] = [], common_cards: list[Card] = []):
         self.name = name
-        self.private_cards = []
-        self.common_cards = []
-        self.hand = []
-    
-    def set_private_cards(self, private_cards: list[Card]):
         self.private_cards = private_cards
-    
-    def set_common_cards(self, common_cards: list[Card]):
         self.common_cards = common_cards
     
     @property
     def private_common_cards(self) -> list:
         return self.private_cards + self.common_cards
     
-    def __contains__(self, card: Card):
-        return f'{card}' in [f'{card}' for card in self.hand]
-    
     def __repr__(self) -> str:
         return self.name
         
-    def get_info_best_hand(self) -> tuple: # type: ignore
+    def get_info_best_hand(self):
         values = []
         suits = []
-        card_combinations = list(combinations(self.private_common_cards, n=5))
+        card_combinations = list(combinations(self.private_common_cards, n = 5))
         for combination in card_combinations:
             for card in sorted(combination, key=lambda c: c.value):
                 values.append(card.value)
@@ -39,50 +29,53 @@ class Player:
             des_values.append(values[i:i+5])
             des_suits.append(suits[i:i+5])
             i += 5
+        best_combination = []
         for value, suit in zip(des_values, des_suits):
+            current_combination = []
             len_set_value = len(set(value))
             len_set_suit = len(set(suit))
-            if (value[-1] - value[0]) == 4 and len_set_value == 5 and len_set_suit == 1:
-                return value, suit, Hand.STRAIGHT_FLUSH
+            if len_set_suit == 1 and len_set_value == 5 and (value[-1] - value[0]) == 4:
+                current_combination = [value, suit, Hand.STRAIGHT_FLUSH]
             if len_set_value == 2:
                 if value[1] == value[3]:
-                    return value, suit, Hand.FOUR_OF_A_KIND
+                    current_combination = [value, suit, Hand.FOUR_OF_A_KIND]
                 else:
-                    return value, suit, Hand.FULL_HOUSE
+                    current_combination = [value, suit, Hand.FULL_HOUSE]
             if len_set_suit == 1:
-                return value, suit, Hand.FLUSH
-            if (value[-1]) - (values[0]) == 4 and len_set_value == 5:
-                return value, suit, Hand.STRAIGHT
+                current_combination = [value, suit, Hand.FLUSH]
+            if len_set_value == 5 and (value[-1]) - (values[0]) == 4:
+                current_combination = [value, suit, Hand.STRAIGHT]
             if len_set_value == 3:
                 if value[0] == value[2] or value[-1] == value[2]:
-                    return value, suit, Hand.THREE_OF_A_KIND
+                    current_combination = [value, suit, Hand.THREE_OF_A_KIND]
                 else:
-                    return value, suit, Hand.TWO_PAIR
+                    current_combination = [value, suit, Hand.TWO_PAIR]
             if len_set_value == 4:
-                return value, suit, Hand.ONE_PAIR
-            return value, suit, Hand.HIGH_CARD
+                current_combination = [value, suit, Hand.ONE_PAIR]
+            else:
+                current_combination = [value, suit, Hand.HIGH_CARD]
+            if len(best_combination) == 3 and best_combination[2] <= current_combination[2]:
+                best_combination = current_combination
+            if best_combination[2] == current_combination[2]:
+                if sum(best_combination[0]) > sum(current_combination[1]):
+                    pass
+            # COMPROBAR CUANDO SE PUEDAN DAR LA MISMA COMBINACIÓN, COGER LA MÁS ALTA Y SI SIGUEN SIENDO
+            # IGUALES LA x CARTA MAS ALTA!
+            if len(best_combination) == 0:
+                best_combination = current_combination
+            
+        return best_combination
        
-    def get_cat_rank(self):
+    def get_cat_rank(self) -> str | tuple[str]:
         values, suits, cat = self.get_info_best_hand()
-        match cat:
-            case Hand.STRAIGHT_FLUSH:
-                return str(max(values))
-            case Hand.FOUR_OF_A_KIND:
-                return str(max(values))
-            case Hand.FULL_HOUSE:
-                return tuple(str(v) for v in values)
-            case Hand.FLUSH:
-                return str(max(values))
-            case Hand.STRAIGHT:
-                return str(max(values))
-            case Hand.THREE_OF_A_KIND:
-                return str(max(values))
-            case Hand.TWO_PAIR:
-                return tuple(str(v) for v in values)
-            case Hand.ONE_PAIR:
-                return str(max(values))
-            case Hand.HIGH_CARD:
-                return str(max(values))
+        if Hand.FULL_HOUSE:
+            return tuple(set(Card.SYMBOLS[v - 1] for v in values)) # posicion trio y pareja
+        if Hand.TWO_PAIR:
+            return tuple(set(Card.SYMBOLS[v - 1] for v in values)) # ordenar de mayor a menor
+        # if Card.A_VALUE in values:
+        #     return Card.SYMBOLS[Card.A_VALUE - 1]
+        card_value = max(values)
+        return Card.SYMBOLS[card_value - 1]
         
     def create_hand(self) -> Hand:
         hand_cards = []
@@ -94,10 +87,14 @@ class Player:
         new_hand.cat = cat
         new_hand.cat_rank = self.get_cat_rank()
         return new_hand
-        
-# new_player = Player('Player 1')
-# print(new_player)
-# new_player.set_common_cards([Card('A♣'), Card('K❤'), Card('K◆'), Card('Q◆'), Card('9♠')])
-# new_player.set_private_cards([Card('K♠'), Card('K♣')])
-# print(new_player.get_best_hand())
-# print(new_player.create_hand())
+    
+    
+players = [Player('Player 1'), Player('Player 2')]
+common_cards = [Card('8♠'), Card('9❤'), Card('K♣'), Card('8❤'), Card('6♠')]
+private_cards = [[Card('Q♣'), Card('8♣')], [Card('2❤'), Card('10◆')]]
+players[0].common_cards = common_cards
+players[0].private_cards = private_cards[0]
+players[1].common_cards = common_cards
+players[1].private_cards = private_cards[1]
+print(players[0].get_info_best_hand())
+print(players[1].get_info_best_hand())

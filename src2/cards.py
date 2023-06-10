@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-
 class Card:
     GLYPHS = {
         '♣':'🃑🃒🃓🃔🃕🃖🃗🃘🃙🃚🃛🃝🃞',
@@ -49,8 +48,8 @@ class Hand:
     
     def __init__(self, cards: list[Card]) -> None:
         self.hand = cards
-        self.cat = int
-        self.cat_rank = str | tuple[str]
+        self.cat: int
+        self.cat_rank: str | tuple[str]
     
     def __getitem__(self, index: int) -> Card:
         return self.hand[index]
@@ -65,7 +64,19 @@ class Hand:
         return " ".join(str(card) for card in self.hand)
     
     def __contains__(self, card: Card):
-        return f'{card}' in [f'{card}' for card in self.hand]
+        return card in self.hand
+    
+    def __gt__(self, other):
+        if self.cat_rank == other.cat_rank and self.cat == other.cat:
+            return [card.value for card in self.hand] > [card.value for card in other.hand]
+        if self.cat > other.cat: 
+            return True
+        return self.cat == other.cat and self.cat_rank > other.cat_rank
+
+    def __eq__(self, other):
+        if self.cat_rank == other.cat_rank and self.cat == other.cat:
+            return [card.value for card in self.hand] == [card.value for card in other.hand]
+        return False
 
 
 class HandIterator:
