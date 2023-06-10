@@ -19,7 +19,7 @@ class Player:
         return self.private_cards + self.common_cards
     
     def __contains__(self, card: Card):
-        return f'{card}' in [f'{card}' for card in self.hand]
+        return str(card) in [str(card) for card in self.hand]
     
     def __repr__(self) -> str:
         return self.name
