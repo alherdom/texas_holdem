@@ -1,6 +1,6 @@
 from card import Card
 from hand import Hand
-from roles import Player
+from player import Player
 
 def get_winner(players: list[Player], common_cards: list[Card], private_cards: list[list[Card]]) -> tuple[Player | None, Hand]:
     player1, player2 = players
@@ -8,8 +8,8 @@ def get_winner(players: list[Player], common_cards: list[Card], private_cards: l
     player2.set_private_cards(private_cards[1])
     player1.set_common_cards(common_cards)
     player2.set_common_cards(common_cards)
-    hand1 = player1.get_hand()
-    hand2 = player2.get_hand()
+    hand1 = player1.create_hand()
+    hand2 = player2.create_hand()
     return player1, hand2
 
 # players = [Player('Player 1'), Player('Player 2')]
