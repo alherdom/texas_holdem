@@ -1,5 +1,4 @@
 from __future__ import annotations
-import helpers
 
 class Card:
     GLYPHS = {
@@ -13,7 +12,7 @@ class Card:
     K_VALUE = 13
     
     def __init__(self, card: str) -> None:
-        value = card[:len(card)-1]
+        value = card[:-1]
         self.value = Card.SYMBOLS.index(value) + 1
         self.suit = card[-1]
     
@@ -25,7 +24,7 @@ class Card:
     
     @property
     def cmp_value(self) -> int:
-        return int(self.value) if not self.is_ace() else Card.A_VALUE + Card.K_VALUE
+        return self.value if not self.is_ace() else Card.A_VALUE + Card.K_VALUE
     
     def __eq__(self, other: Card) -> bool:
         return self.value == other.value and self.suit == other.suit
@@ -50,9 +49,6 @@ class Hand:
     
     def __getitem__(self, index: int) -> Card:
         return self.hand[index]
-
-    def __setitem__(self, index: int, item: int) -> None:
-        self.hand[index] = item
     
     def __len__(self) -> int:
         return len(self.hand)
