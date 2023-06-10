@@ -31,7 +31,6 @@ class Player:
             i += 5
         best_combination = []
         for value, suit in zip(des_values, des_suits):
-            current_combination = []
             len_set_value = len(set(value))
             len_set_suit = len(set(suit))
             if len_set_suit == 1 and len_set_value == 5 and (value[-1] - value[0]) == 4:
@@ -52,13 +51,13 @@ class Player:
                     current_combination = [value, suit, Hand.TWO_PAIR]
             if len_set_value == 4:
                 current_combination = [value, suit, Hand.ONE_PAIR]
-            else:
+            if len_set_value == 5:
                 current_combination = [value, suit, Hand.HIGH_CARD]
-            if len(best_combination) == 3 and best_combination[2] <= current_combination[2]:
+            if len(best_combination) == 3 and best_combination[2] < current_combination[2]:
                 best_combination = current_combination
-            if best_combination[2] == current_combination[2]:
-                if sum(best_combination[0]) > sum(current_combination[1]):
-                    pass
+            # if best_combination[2] == current_combination[2]:
+            #     if sum(best_combination[0]) > sum(current_combination[1]):
+            #         pass
             # COMPROBAR CUANDO SE PUEDAN DAR LA MISMA COMBINACIÓN, COGER LA MÁS ALTA Y SI SIGUEN SIENDO
             # IGUALES LA x CARTA MAS ALTA!
             if len(best_combination) == 0:
