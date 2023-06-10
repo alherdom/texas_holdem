@@ -9,6 +9,8 @@ def get_winner(players: list[Player], common_cards: list[Card], private_cards: l
     player2.set_common_cards(common_cards)
     hand1 = player1.create_hand()
     hand2 = player2.create_hand()
+    if hand2.cat == hand1.cat:
+        return None, hand1
     if hand2.cat > hand1.cat:
         return player2, hand2
     return player1, hand1
