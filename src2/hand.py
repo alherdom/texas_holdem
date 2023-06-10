@@ -13,10 +13,9 @@ class Hand:
     STRAIGHT_FLUSH = 9
     
     def __init__(self, cards: list[Card]) -> None:
-        self.cat = 1
         self.hand = cards
-        self.cat = ''
-        self.cat_rank = ''
+        self.cat = 0
+        self.cat_rank = 0
     
     def __getitem__(self, index: int) -> Card:
         return self.hand[index]

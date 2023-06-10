@@ -68,6 +68,7 @@ class Player:
             hand_cards.append(Card(card_value+suit))
         new_hand = Hand(hand_cards)
         new_hand.cat = cat
+        new_hand.cat_rank = 13
         return new_hand
         
 new_player = Player('Player 1')
