@@ -12,8 +12,7 @@ class Card:
     K_VALUE = 13
     
     def __init__(self, card: str) -> None:
-        value = card[:-1]
-        self.value = Card.SYMBOLS.index(value) + 1
+        self.value = Card.SYMBOLS.index(card[:-1]) + 1
         self.suit = card[-1]
     
     def __repr__(self) -> str:
@@ -28,6 +27,9 @@ class Card:
     
     def __eq__(self, other: Card) -> bool:
         return self.value == other.value and self.suit == other.suit
+    
+    def __gt__(self, other: Card) -> bool:
+        return self.value == max(self.value, other.value)
     
     def __lt__(self, other: Card) -> bool:
         return self.value == min(self.value, other.value)
@@ -46,6 +48,8 @@ class Hand:
     def __init__(self, cards: list[Card]) -> None:
         self.cat = 1
         self.hand = cards
+        self.cat = '1'
+        self.cat_rank = '0'
     
     def __getitem__(self, index: int) -> Card:
         return self.hand[index]
@@ -58,6 +62,9 @@ class Hand:
     
     def __repr__(self) -> str:
         return " ".join(str(card) for card in self.hand)
+    
+    def __contains__(self, card: Card):
+        return f'{card}' in [f'{card}' for card in self.hand]
 
 class HandIterator:
     def __init__(self, hand: Hand):
@@ -77,4 +84,4 @@ print(new_card)
 new_hand = Hand([Card('A❤'), Card('10❤'), Card('A♠'), Card('Q❤'), Card('K♣')])
 print(new_hand)
 for card in new_hand:
-    print(card.cmp_value)
+    print(card.value)
