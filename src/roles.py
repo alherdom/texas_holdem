@@ -42,10 +42,10 @@ class Player:
         return len_set_values == 5 and (values[-1]) - (values[0]) == 4
     
     def is_three_of_a_kind(self, values: list, len_set_values: int) -> bool:
-        return len_set_values == 3 and values[0] == values[2] or values[-1] == values[2]
+        return len_set_values == 3 and not self.is_two_pairs(values, len_set_values)
     
     def is_two_pairs(self, values: list, len_set_values: int) -> bool:
-        return len_set_values == 2 and values[0] != values[2] or values[-1] != values[2]
+        return len_set_values == 3 and values[0] != values[2] or values[-1] != values[2]
     
     def is_one_pair(self, len_set_values: int) -> bool:
         return len_set_values == 4
@@ -105,12 +105,12 @@ class Player:
         new_hand.cat_rank = self.get_cat_rank()
         return new_hand
 
-# players = [Player('Player 1'), Player('Player 2')]
-# common_cards = [Card('8♠'), Card('9❤'), Card('K♣'), Card('8❤'), Card('6♠')]
-# private_cards = [[Card('Q♣'), Card('8♣')], [Card('2❤'), Card('10◆')]]
-# players[0].common_cards = common_cards
-# players[0].private_cards = private_cards[0]
-# players[1].common_cards = common_cards
-# players[1].private_cards = private_cards[1]
-# print(players[0].best_hand())
-# print(players[1].best_hand())
+players = [Player('Player 1'), Player('Player 2')]
+common_cards = [Card('8♠'), Card('9❤'), Card('K♣'), Card('8❤'), Card('6♠')]
+private_cards = [[Card('Q♣'), Card('8♣')], [Card('2❤'), Card('10◆')]]
+players[0].common_cards = common_cards
+players[0].private_cards = private_cards[0]
+players[1].common_cards = common_cards
+players[1].private_cards = private_cards[1]
+print(players[0].best_hand())
+print(players[1].best_hand())

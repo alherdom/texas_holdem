@@ -67,7 +67,8 @@ class Hand:
         return card in self.hand
     
     def __gt__(self, other):
-        if self.cat_rank == other.cat_rank and self.cat == other.cat:
+        new_var = self.cat_rank == other.cat_rank and self.cat == other.cat
+        if new_var:
             return [card.value for card in self.hand] > [card.value for card in other.hand]
         if self.cat > other.cat: 
             return True
