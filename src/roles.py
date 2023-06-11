@@ -62,21 +62,21 @@ class Player:
             
             if self.is_straight_flush(values, len_set_values, len_set_suits):
                 current_combination = [values, suits, Hand.STRAIGHT_FLUSH]
-            if self.is_four_of_a_kind(values, len_set_values):
+            elif self.is_four_of_a_kind(values, len_set_values):
                 current_combination = [values, suits, Hand.FOUR_OF_A_KIND]
-            if self.is_full_house(values, len_set_values):
+            elif self.is_full_house(values, len_set_values):
                 current_combination = [values, suits, Hand.FULL_HOUSE]
-            if self.is_flush:
+            elif self.is_flush:
                 current_combination = [values, suits, Hand.FLUSH]
-            if self.is_straight(values, len_set_values):
+            elif self.is_straight(values, len_set_values):
                 current_combination = [values, suits, Hand.STRAIGHT]
-            if self.is_three_of_a_kind(values, len_set_values):
+            elif self.is_three_of_a_kind(values, len_set_values):
                 current_combination = [values, suits, Hand.THREE_OF_A_KIND]
-            if self.is_two_pairs(values, len_set_values):
+            elif self.is_two_pairs(values, len_set_values):
                 current_combination = [values, suits, Hand.TWO_PAIR]
-            if self.is_one_pair(len_set_values):
+            elif self.is_one_pair(len_set_values):
                 current_combination = [values, suits, Hand.ONE_PAIR]
-            if self.is_high_card(len_set_values):
+            elif self.is_high_card(len_set_values):
                 current_combination = [values, suits, Hand.HIGH_CARD]
         
             if current_combination[2] > best_combination[2]:
@@ -106,12 +106,12 @@ class Player:
         return new_hand
     
     
-# players = [Player('Player 1'), Player('Player 2')]
-# common_cards = [Card('8♠'), Card('9❤'), Card('K♣'), Card('8❤'), Card('6♠')]
-# private_cards = [[Card('Q♣'), Card('8♣')], [Card('2❤'), Card('10◆')]]
-# players[0].common_cards = common_cards
-# players[0].private_cards = private_cards[0]
-# players[1].common_cards = common_cards
-# players[1].private_cards = private_cards[1]
-# print(players[0].best_hand())
-# print(players[1].best_hand())
+players = [Player('Player 1'), Player('Player 2')]
+common_cards = [Card('8♠'), Card('9❤'), Card('K♣'), Card('8❤'), Card('6♠')]
+private_cards = [[Card('Q♣'), Card('8♣')], [Card('2❤'), Card('10◆')]]
+players[0].common_cards = common_cards
+players[0].private_cards = private_cards[0]
+players[1].common_cards = common_cards
+players[1].private_cards = private_cards[1]
+print(players[0].best_hand())
+print(players[1].best_hand())

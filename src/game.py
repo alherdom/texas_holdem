@@ -15,17 +15,17 @@ def get_winner(players: list[Player], common_cards: list[Card], private_cards: l
     return player2, player2_hand
     
 
-players = [Player('Player 1'), Player('Player 2')]
-common_cards = [Card('8♠'), Card('9❤'), Card('K♣'), Card('8❤'), Card('6♠')]
-private_cards = [[Card('Q♣'), Card('8♣')], [Card('2❤'), Card('10◆')]]
-print(get_winner(players, common_cards, private_cards))
+# players = [Player('Player 1'), Player('Player 2')]
+# common_cards = [Card('8♠'), Card('9❤'), Card('K♣'), Card('8❤'), Card('6♠')]
+# private_cards = [[Card('Q♣'), Card('8♣')], [Card('2❤'), Card('10◆')]]
+# print(get_winner(players, common_cards, private_cards))
 
-players = [Player('Player 1'), Player('Player 2')]
-common_cards = [Card('10◆'), Card('9◆'), Card('8♠'), Card('6❤'), Card('5♠')]
-private_cards = [[Card('Q♠'), Card('4◆')], [Card('8♣'), Card('3❤')]]
-print(get_winner(players, common_cards, private_cards))
+# players = [Player('Player 1'), Player('Player 2')]
+# common_cards = [Card('10◆'), Card('9◆'), Card('8♠'), Card('6❤'), Card('5♠')]
+# private_cards = [[Card('Q♠'), Card('4◆')], [Card('8♣'), Card('3❤')]]
+# print(get_winner(players, common_cards, private_cards))
 
-players = [Player('Player 1'), Player('Player 2')]
-common_cards = [Card('A♣'), Card('9◆'), Card('8♠'), Card('A❤'), Card('5♠')]
-private_cards = [[Card('A♠'), Card('A◆')], [Card('8♣'), Card('3❤')]]
-print(get_winner(players, common_cards, private_cards))
+# players = [Player('Player 1'), Player('Player 2')]
+# common_cards = [Card('A♣'), Card('9◆'), Card('8♠'), Card('A❤'), Card('5♠')]
+# private_cards = [[Card('A♠'), Card('A◆')], [Card('8♣'), Card('3❤')]]
+# print(get_winner(players, common_cards, private_cards))
