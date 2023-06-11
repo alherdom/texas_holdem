@@ -106,12 +106,12 @@ class Player:
         return new_hand
     
     
-players = [Player('Player 1'), Player('Player 2')]
-common_cards = [Card('8♠'), Card('9❤'), Card('K♣'), Card('8❤'), Card('6♠')]
-private_cards = [[Card('Q♣'), Card('8♣')], [Card('2❤'), Card('10◆')]]
-players[0].common_cards = common_cards
-players[0].private_cards = private_cards[0]
-players[1].common_cards = common_cards
-players[1].private_cards = private_cards[1]
-print(players[0].best_hand())
-print(players[1].best_hand())
+# players = [Player('Player 1'), Player('Player 2')]
+# common_cards = [Card('8♠'), Card('9❤'), Card('K♣'), Card('8❤'), Card('6♠')]
+# private_cards = [[Card('Q♣'), Card('8♣')], [Card('2❤'), Card('10◆')]]
+# players[0].common_cards = common_cards
+# players[0].private_cards = private_cards[0]
+# players[1].common_cards = common_cards
+# players[1].private_cards = private_cards[1]
+# print(players[0].best_hand())
+# print(players[1].best_hand())

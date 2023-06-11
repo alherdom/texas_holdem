@@ -13,7 +13,11 @@ def get_winner(players: list[Player], common_cards: list[Card], private_cards: l
     if player1_hand > player2_hand:
         return player1, player1_hand
     return player2, player2_hand
-    
+
+# players = [Player('Player 1'), Player('Player 2')]
+# common_cards = [Card('A❤'), Card('K◆'), Card('Q♣'), Card('9❤'), Card('3♣')]
+# private_cards = [[Card('6◆'), Card('3◆')], [Card('J◆'), Card('4◆')]]
+# print(get_winner(players, common_cards, private_cards))
 
 # players = [Player('Player 1'), Player('Player 2')]
 # common_cards = [Card('8♠'), Card('9❤'), Card('K♣'), Card('8❤'), Card('6♠')]
