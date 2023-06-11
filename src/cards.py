@@ -43,7 +43,6 @@ class Hand:
     
     def __init__(self, cards: list[Card]):
         self.hand = cards
-        self.cat: int
         self.cat_rank: str | tuple[str]
     
     def __getitem__(self, index: int) -> Card:
@@ -79,18 +78,56 @@ class Hand:
                 return False
         return True
     
+    def is_straight_flush(self, values: list[int], len_set_values: int, len_set_suits: int) -> bool:
+        return len_set_suits == 1 and len_set_values == 5 and values[-1] - values[0] == 4
+    
+    def is_four_of_a_king(self, values: list[int], len_set_values: int) -> bool:
+        return len_set_values == 2 and values[0] == values[3]
+    
+    def is_full_house(self, values: list[int], len_set_values: int) -> bool:
+        return len_set_values == 2 and values[2] != values[3]
+    
+    def is_flush(self, len_set_suits: int) -> bool:
+        return len_set_suits == 1
+    
+    def is_straight(self, values: list[int], len_set_values: int) -> bool:
+        return len_set_values == 5 and values[-1] - values[0] == 4
+    
+    def is_three_of_a_kind(self, values: list[int], len_set_values: int) -> bool:
+        return len_set_values == 3 and values[1] == values[2]
+    
+    def is_two_pair(self, values: list[int], len_set_values: int) -> bool:
+        return len_set_values == 3 and values[1] != values[2]
+    
+    def is_one_pair(self, len_set_values: int) -> bool:
+        return len_set_values == 4
+    
     @property
-    def cat(self):
-        values = value for card in sorted(self.hand):
-            
-            
+    def cat(self) -> int:
+        values = [card.value for card in self.hand]
+        values = sorted(values, key=lambda v: values.count(v), reverse=True)
+        suits = [card.suit for card in self.hand]
+        len_set_values = len(set(values))
+        len_set_suits = len(set(suits))
+        if self.is_straight_flush(values, len_set_values, len_set_suits):
+            return Hand.STRAIGHT_FLUSH
+        if self.is_four_of_a_king(values, len_set_values):
+            return Hand.FOUR_OF_A_KIND
+        if self.is_full_house(values, len_set_values):
+            return Hand.FULL_HOUSE
+        if self.is_flush(len_set_suits):
+            return Hand.FLUSH
+        if self.is_straight(values, len_set_values):
+            return Hand.STRAIGHT
+        if self.is_three_of_a_kind(values, len_set_values):
+            return Hand.THREE_OF_A_KIND
+        if self.is_two_pair(values, len_set_values):
+            return Hand.TWO_PAIR
+        if self.is_one_pair(len_set_values):
+            return Hand.ONE_PAIR
+        return Hand.HIGH_CARD
         
-
-    @property
-    def cat_rank(self):
-        pass
         
-            
 class HandIterator:
     def __init__(self, hand: Hand):
         self.hand = hand
