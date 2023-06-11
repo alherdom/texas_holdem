@@ -62,14 +62,16 @@ class Hand:
         return card in self.hand
     
     def __gt__(self, other):
-        pass
+        for card1, card2 in zip(self, other):
+            if card1 < card2:
+                return False
+        return True
         
     def __eq__(self, other):
         for card1, card2 in zip(self, other):
             if card1 != card2:
                 return False
-            else:
-                return True
+        return True
             
 
 class HandIterator:
