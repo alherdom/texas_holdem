@@ -61,9 +61,12 @@ class Hand:
         return card in self.hand
     
     def __gt__(self, other) -> bool:
-        for card1, card2 in zip(self.hand, other.hand):
-            if card1 < card2:
-                return False
+        if self.cat < other.cat:
+            return False
+        if self.cat == other.cat:
+            for card1, card2 in zip(self.hand, other.hand):
+                if card1 < card2:
+                    return False
         return True
     
     def __lt__(self, other) -> bool:
