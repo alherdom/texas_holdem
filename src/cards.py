@@ -26,7 +26,7 @@ class Card:
         return self.value if not self.is_ace() else Card.A_VALUE + Card.K_VALUE
     
     def __eq__(self, other: Card) -> bool:
-        return self.value == other.value and self.suit == other.suit
+        return self.value == other.value
     
     def __gt__(self, other: Card) -> bool:
         return self.value == max(self.value, other.value)
