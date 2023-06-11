@@ -1,22 +1,17 @@
 from __future__ import annotations
 
 class Card:
-    GLYPHS = {
-        '♣':'🃑🃒🃓🃔🃕🃖🃗🃘🃙🃚🃛🃝🃞',
-        '◆':'🃁🃂🃃🃄🃅🃆🃇🃈🃉🃊🃋🃍🃎',
-        '❤':'🂱🂲🂳🂴🂵🂶🂷🂸🂹🂺🂻🂽🂾',
-        '♠':'🂡🂢🂣🂤🂥🂦🂧🂨🂩🂪🂫🂭🂮'
-        }
     SYMBOLS = ('A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K')
     A_VALUE = 1
     K_VALUE = 13
     
     def __init__(self, card: str) -> None:
+        self.value_suit = card
         self.value = Card.SYMBOLS.index(card[:-1]) + 1
         self.suit = card[-1]
     
     def __repr__(self) -> str:
-        return Card.GLYPHS[self.suit][self.value -1]
+        return self.value_suit
     
     def is_ace(self) -> bool:
         return self.value == Card.A_VALUE
@@ -26,13 +21,13 @@ class Card:
         return self.value if not self.is_ace() else Card.A_VALUE + Card.K_VALUE
     
     def __eq__(self, other: Card) -> bool:
-        return self.value == other.value
+        return self.cmp_value == other.cmp_value
     
     def __gt__(self, other: Card) -> bool:
-        return self.value == max(self.value, other.value)
+        return self.cmp_value > other.cmp_value
     
     def __lt__(self, other: Card) -> bool:
-        return self.value == min(self.value, other.value)
+        return self.cmp_value < other.cmp_value
 
 
 class Hand:
@@ -67,18 +62,15 @@ class Hand:
         return card in self.hand
     
     def __gt__(self, other):
-        new_var = self.cat_rank == other.cat_rank and self.cat == other.cat
-        if new_var:
-            return [card.value for card in self.hand] > [card.value for card in other.hand]
-        if self.cat > other.cat: 
-            return True
-        return self.cat == other.cat and self.cat_rank > other.cat_rank
-
+        pass
+        
     def __eq__(self, other):
-        if self.cat_rank == other.cat_rank and self.cat == other.cat:
-            return [card.value for card in self.hand] == [card.value for card in other.hand]
-        return False
-
+        for card1, card2 in zip(self, other):
+            if card1 != card2:
+                return False
+            else:
+                return True
+            
 
 class HandIterator:
     def __init__(self, hand: Hand):
@@ -91,3 +83,22 @@ class HandIterator:
         item = self.hand[self.counter]
         self.counter += 1
         return item
+    
+new_card = Card('A❤')
+print(new_card)
+cards1 = [Card('A❤'),Card('A❤'),Card('A❤'),Card('A❤'),Card('A❤')]
+new_hand1 = Hand(cards1)
+print(new_hand1)
+cards2 = [Card('A❤'),Card('A❤'),Card('A❤'),Card('8❤'),Card('A❤')]
+new_hand2 = Hand(cards2)
+print(new_hand2)
+# print(new_hand1 == new_hand2)
+card1 = Card('A❤')
+card2 = Card('K❤')
+print(card1 > card2)
+print(card1 < card2)
+print(card2 > card1)
+print(card2 < card1)
+print(card1 == card2)
+print(card1.cmp_value)
+print(card2.cmp_value)
