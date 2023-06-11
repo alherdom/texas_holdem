@@ -104,8 +104,7 @@ class Player:
         new_hand.cat = cat
         new_hand.cat_rank = self.get_cat_rank()
         return new_hand
-    
-    
+
 # players = [Player('Player 1'), Player('Player 2')]
 # common_cards = [Card('8♠'), Card('9❤'), Card('K♣'), Card('8❤'), Card('6♠')]
 # private_cards = [[Card('Q♣'), Card('8♣')], [Card('2❤'), Card('10◆')]]
