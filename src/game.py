@@ -29,3 +29,8 @@ def get_winner(players: list[Player], common_cards: list[Card], private_cards: l
 # common_cards = [Card('A♣'), Card('9◆'), Card('8♠'), Card('A❤'), Card('5♠')]
 # private_cards = [[Card('A♠'), Card('A◆')], [Card('8♣'), Card('3❤')]]
 # print(get_winner(players, common_cards, private_cards))
+
+# players = [Player('Player 1'), Player('Player 2')]
+# common_cards = [Card('A◆'), Card('J❤'), Card('8♣'), Card('7♣'), Card('6♠')]
+# private_cards = [[Card('4♣'), Card('2❤')], [Card('9♠'), Card('2◆')]]
+# print(get_winner(players, common_cards, private_cards))

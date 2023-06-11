@@ -22,8 +22,8 @@ class Player:
             for card in sorted(combination, key=lambda c: c.value):
                 values.append(card.value)
                 suits.append(card.suit)
-        values_combinatios = (values[i:i+5] for i in range(0, len(values), 5))
-        suits_combinatios = (suits[i:i+5] for i in range(0, len(suits), 5))
+        values_combinatios = [values[i:i+5] for i in range(0, len(values), 5)]
+        suits_combinatios = [suits[i:i+5] for i in range(0, len(suits), 5)]
         return values_combinatios, suits_combinatios
     
     def is_straight_flush(self, values: list, len_set_values: int, len_set_suits: int) -> bool:
@@ -66,7 +66,7 @@ class Player:
                 current_combination = [values, suits, Hand.FOUR_OF_A_KIND]
             elif self.is_full_house(values, len_set_values):
                 current_combination = [values, suits, Hand.FULL_HOUSE]
-            elif self.is_flush:
+            elif self.is_flush(len_set_suits):
                 current_combination = [values, suits, Hand.FLUSH]
             elif self.is_straight(values, len_set_values):
                 current_combination = [values, suits, Hand.STRAIGHT]
