@@ -7,10 +7,10 @@ class Card:
     REAL_A_VALUE = 14
    
     def __init__(self, card: str):
+        self.suit = card[-1]
         self.value_suit = card
         self.value = Card.SYMBOLS.index(card[:-1]) + 1
-        self.suit = card[-1]
-    
+
     @property
     def cmp_value(self) -> int:
         return self.value if not self.is_ace() else Card.REAL_A_VALUE
