@@ -93,7 +93,7 @@ class Hand:
         return len_set_values == 5 and values[-1] - values[0] == 4
     
     def is_three_of_a_kind(self, values: list[int], len_set_values: int) -> bool:
-        return len_set_values == 3 and values[1] == values[2]
+        return len_set_values == 3 and values[0] == values[2]
     
     def is_two_pair(self, values: list[int], len_set_values: int) -> bool:
         return len_set_values == 3 and values[1] != values[2]
@@ -104,7 +104,7 @@ class Hand:
     @property
     def cat(self) -> int:
         values = [card.value for card in self.hand]
-        values = sorted(values, key=lambda v: values.count(v), reverse=True)
+        values = sorted(values, key=lambda x: (-values.count(x), x))
         suits = [card.suit for card in self.hand]
         len_set_values = len(set(values))
         len_set_suits = len(set(suits))
@@ -158,6 +158,6 @@ class HandIterator:
 # print(new_hand.cat)
 # print(new_hand.cat_rank)
 # print(new_hand)
-new_hand = Hand([Card('K♠'), Card('K◆'), Card('2❤'), Card('2♣'), Card('A◆')])
-print(new_hand.cat)
-print(new_hand.cat_rank)
+# new_hand = Hand([Card('2♠'), Card('K◆'), Card('K❤'), Card('2♣'), Card('A◆')])
+# print(new_hand.cat)
+# print(new_hand.cat_rank)
