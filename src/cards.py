@@ -2,6 +2,7 @@ from __future__ import annotations
 
 
 class Card:
+    ORDER = {'A': 14, 'K': 13, 'Q': 12, 'J': 11, '10': 10, '9': 9, '8': 8, '7': 7, '6': 6, '5': 5, '4': 4, '3': 3, '2': 2, '1': 1}
     SYMBOLS = ('A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K')
     A_VALUE = 1
     REAL_A_VALUE = 14
@@ -134,7 +135,7 @@ class Hand:
             return item1
         if self.cat == Hand.TWO_PAIR:
             item2 = Card.SYMBOLS[values[2] - 1]
-            return tuple(sorted((item1, item2), reverse = True))
+            return tuple(sorted((item1, item2), key=lambda c: Card.ORDER[c], reverse=True))
         if self.cat == Hand.FULL_HOUSE:
             item2 = Card.SYMBOLS[values[3] - 1]
             return item1, item2
@@ -157,3 +158,6 @@ class HandIterator:
 # print(new_hand.cat)
 # print(new_hand.cat_rank)
 # print(new_hand)
+new_hand = Hand([Card('K♠'), Card('K◆'), Card('2❤'), Card('2♣'), Card('A◆')])
+print(new_hand.cat)
+print(new_hand.cat_rank)
