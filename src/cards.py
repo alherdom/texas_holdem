@@ -60,7 +60,7 @@ class Hand:
     def __contains__(self, card: Card):
         return card in self.hand
     
-    # CORREGIR MÉTODOS MÁGICOS, POSIBLE FALLOS EN __gt__ Y __eq__
+    # CORREGIR MÉTODOS MÁGICOS, POSIBLES FALLOS EN __gt__ Y __eq__ !
     def __gt__(self, other) -> bool:
         if self.cat > other.cat:
             return True
