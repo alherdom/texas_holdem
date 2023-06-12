@@ -60,10 +60,15 @@ class Hand:
     def __contains__(self, card: Card):
         return card in self.hand
     
+    # CORREGIR MÉTODOS MÁGICOS, POSIBLE FALLOS EN __gt__ Y __eq__
     def __gt__(self, other) -> bool:
         if self.cat > other.cat:
             return True
-        if self.cat == other.cat and self.cat_rank > other.cat_rank:
+        if self.cat == other.cat:
+            if self.cat_rank > other.cat_rank:
+                return True
+            if sum([card.cmp_value for card in self]) > sum([card.cmp_value for card in other]):
+                return True
             return True
         return False
         
