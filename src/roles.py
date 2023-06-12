@@ -12,7 +12,7 @@ class Player:
     
     @property
     def hands(self):
-        card_combinations = list(combinations((self.private_cards + self.common_cards), n=5)) 
+        card_combinations = list(combinations((self.private_cards + self.common_cards), n = 5))
         return [Hand(combination) for combination in card_combinations]
     
     @property

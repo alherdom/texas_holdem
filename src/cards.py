@@ -64,12 +64,13 @@ class Hand:
     def __gt__(self, other) -> bool:
         if self.cat > other.cat:
             return True
+        if self == other:
+            if sum([card.cmp_value for card in self]) > sum([card.cmp_value for card in other]):
+                return True
         if self.cat == other.cat:
             if self.cat_rank > other.cat_rank:
                 return True
-            if sum([card.cmp_value for card in self]) > sum([card.cmp_value for card in other]):
-                return True
-            return True
+            return False
         return False
         
     def __eq__(self, other) -> bool:
@@ -136,7 +137,7 @@ class Hand:
             return tuple(sorted((item1, item2), reverse = True))
         if self.cat == Hand.FULL_HOUSE:
             item2 = Card.SYMBOLS[values[3] - 1]
-            return tuple(item1, item2)
+            return item1, item2
         return Card.SYMBOLS[max(values) - 1]
         
 class HandIterator:
@@ -150,3 +151,9 @@ class HandIterator:
         item = self.hand[self.counter]
         self.counter += 1
         return item
+    
+# new_hand = Hand([Card('K❤'), Card('K◆'), Card('3❤'), Card('3◆'), Card('A◆')])
+# new_hand = Hand([Card('A♠'), Card('A♣'), Card('Q♠'), Card('Q♣'), Card('J♣')])
+# print(new_hand.cat)
+# print(new_hand.cat_rank)
+# print(new_hand)
