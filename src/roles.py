@@ -9,3 +9,16 @@ class Player:
     
     def __repr__(self) -> str:
         return self.name
+    
+    @property
+    def hands(self):
+        card_combinations = list(combinations((self.private_cards + self.common_cards), n=5)) 
+        return [Hand(combination) for combination in card_combinations]
+    
+    @property
+    def best_hand(self):
+        best_hand = self.hands[0]
+        for hand in self.hands:
+            if hand > best_hand:
+                best_hand = hand
+        return best_hand
