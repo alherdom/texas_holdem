@@ -7,9 +7,5 @@ class Player:
         self.private_cards = private_cards
         self.common_cards = common_cards
     
-    @property
-    def private_common_cards(self) -> list:
-        return self.private_cards + self.common_cards
-    
     def __repr__(self) -> str:
         return self.name
