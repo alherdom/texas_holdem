@@ -62,6 +62,21 @@ class Hand:
         return card in self.hand
     
     # CORREGIR MÉTODOS MÁGICOS, POSIBLES FALLOS EN __gt__ Y __eq__ !
+    # def __gt__(self, other) -> bool:
+    #     if self.cat > other.cat:
+    #         return True
+    #     if self.cat == other.cat:
+    #         if self.cat_rank > other.cat_rank:
+    #             return True
+    #         if self.cat_rank == other.cat_rank:
+    #             self_values = sum([card.cmp_value for card in self.hand])
+    #             other_values = sum([card.cmp_value for card in self.hand])
+    #             if self_values > other_values:
+    #                 return True
+    #             return False
+    #         return False
+    #     return False
+                    
     def __gt__(self, other) -> bool:
         if self.cat > other.cat:
             return True
@@ -75,9 +90,8 @@ class Hand:
         return False
         
     def __eq__(self, other) -> bool:
-        if self.cat == other.cat and self.cat_rank == other.cat_rank:
-            
-    
+        return self.cat == other.cat and self.cat_rank == other.cat_rank
+
     def is_straight_flush(self, values: list[int], len_set_values: int, len_set_suits: int) -> bool:
         return len_set_suits == 1 and len_set_values == 5 and values[-1] - values[0] == 4
     
