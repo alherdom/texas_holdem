@@ -75,7 +75,8 @@ class Hand:
         return False
         
     def __eq__(self, other) -> bool:
-        return self.cat == other.cat and self.cat_rank == other.cat_rank
+        if self.cat == other.cat and self.cat_rank == other.cat_rank:
+            
     
     def is_straight_flush(self, values: list[int], len_set_values: int, len_set_suits: int) -> bool:
         return len_set_suits == 1 and len_set_values == 5 and values[-1] - values[0] == 4
