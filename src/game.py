@@ -1,7 +1,7 @@
 from roles import Player
 from cards import Card, Hand
 
-def get_winner(players: list[Player], common_cards: list[Card], private_cards: list[list[Card]]) -> tuple[Player | None, Hand]:
+def get_winner(players: list[Player], common_cards: list[Card], private_cards: list[list[Card]]) -> tuple[Player | None, Hand]:       
     player1 = players[0]
     player2 = players[1]
     player1.private_cards, player1.common_cards = private_cards[0], common_cards
@@ -15,7 +15,18 @@ def get_winner(players: list[Player], common_cards: list[Card], private_cards: l
     if player2_hand == player1_hand: 
         return None, player1_hand
 
-player1 = Player('player 1')
-player2 = Player('player 2')
+# Intento para N Jugadores
 
-print(get_winner([player1,player2],[Card('Q♣'), Card('7♣'), Card('4♣'), Card('4❤'), Card('2♣')],  [[Card('A❤'), Card('A◆')], [Card('Q❤'), Card('10❤')]]))
+# def get_winner(players: list[Player], common_cards: list[Card], private_cards: list[list[Card]]) -> list[tuple[Player | None, Hand]]:
+#     players_hands = {}
+#     for player, private_card in zip(players, private_cards):
+#         player.private_cards, player.common_cards = private_card, common_cards
+#         players_hands[player] = player.get_best_hand()
+#     hands = [hand for hand in players_hands.values()]
+#     max_hand = max(hands)
+#     winner_hands = hands.count(max_hand)
+#     if winner_hands > 1:
+#         last_player = Player(None)
+#         return last_player.name, max_hand
+#     winner_player = [player for player, hand in players_hands.items() if hand == max_hand]
+#     return winner_player[0], max_hand

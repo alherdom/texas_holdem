@@ -21,9 +21,8 @@ class Card:
     def __eq__(self, other) -> bool:
         return self.value == other.value
  
-
 class Hand:
-    
+
     HIGH_CARD = 1
     ONE_PAIR = 2
     TWO_PAIR = 3
@@ -46,7 +45,6 @@ class Hand:
                 return sum(SYMBOLS.index(rank) + 2 for rank in self.cat_rank)
             return [SYMBOLS.index(rank) + 2 for rank in self.cat_rank]
         return SYMBOLS.index(self.cat_rank) + 2
-
 
     def is_straight_flush(self, values: list[int], len_set_values: int, len_set_suits: int) -> bool:
         return (len_set_suits == 1 and len_set_values == 5 and values[-1] - values[0] == 4)
@@ -73,8 +71,9 @@ class Hand:
         return len_set_values == 4
     
     def ordered_repetition_values(self) -> list:
+        '''Uso de función lambda para ordenar los valores en función del número de repeticiones'''
         values = [card.value for card in self.combination]
-        return sorted(values, key=lambda x: (-values.count(x), x))
+        return sorted(values, key=lambda v: values.count(v), reverse = True)
 
     def get_cat(self) -> int:
         values = self.ordered_repetition_values()
@@ -108,14 +107,11 @@ class Hand:
             second_repeated_value = values[2]
             repeated_values = sorted((first_repeated_value, second_repeated_value), reverse = True)
             first_pair, second_pair = repeated_values
-            first_pair = SYMBOLS[first_pair - 2]
-            second_pair = SYMBOLS[second_pair - 2]
-            return first_pair, second_pair
+            return SYMBOLS[first_pair - 2], SYMBOLS[second_pair - 2]
         if self.cat == Hand.FULL_HOUSE:
             second_repeated_value = values[3]
             return SYMBOLS[first_repeated_value - 2], SYMBOLS[second_repeated_value - 2]
-        highest_value = max(values)
-        return SYMBOLS[highest_value - 2]
+        return SYMBOLS[max(values) - 2]
     
     def __gt__(self, other):
         if self.cat > other.cat:
@@ -126,10 +122,10 @@ class Hand:
         if self == other:
             player1_hand = sorted(self, reverse = True)
             player2_hand = sorted(other, reverse = True)
-            for card_player1, card_player2 in zip(player1_hand, player2_hand):
-                if card_player1 > card_player2:
+            for card1, card2 in zip(player1_hand, player2_hand):
+                if card1 > card2:
                     return True
-                if card_player2 > card_player1:
+                if card2 > card1:
                     return False
         return False
     
@@ -156,7 +152,3 @@ class HandIterator:
         card = self.hand.combination[self.pointer]
         self.pointer += 1
         return card
-    
-
-    
-
