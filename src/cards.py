@@ -83,6 +83,7 @@ class Hand:
         if self == other:
             if sum([card.cmp_value for card in self]) > sum([card.cmp_value for card in other]):
                 return True
+            return False
         if self.cat == other.cat:
             if self.cat_rank > other.cat_rank:
                 return True
