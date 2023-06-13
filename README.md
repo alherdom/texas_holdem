@@ -2,7 +2,9 @@
 
 ### TAREA EVALUABLE
 
-<img src = "img/poker.svg">
+<div align="center">
+<img width = 95% src = "img/winning_hands_tool.png">
+</div>
 
 ## Objetivo
 
