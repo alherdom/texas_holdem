@@ -70,7 +70,10 @@ class Hand:
             if self.cat_rank > other.cat_rank:
                 return True
         if self == other:
-            if sum([card.cmp_value for card in self]) > sum([card.cmp_value for card in other]):
+            suma1 = sum([card.cmp_value for card in self])
+            suma2 = sum([card.cmp_value for card in other])
+            print(suma1, suma2)
+            if suma1 > suma2:
                 return True
         return False
 
@@ -152,6 +155,3 @@ class HandIterator:
         item = self.hand[self.counter]
         self.counter += 1
         return item
-    
-card = Card('A♣')
-print(card.cmp_value)
