@@ -1,5 +1,6 @@
 import pytest
-from cards import Card, Hand
+from card import Card
+from hand import Hand
 from game import get_winner
 from roles import Player
 

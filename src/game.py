@@ -1,5 +1,6 @@
+from card import Card
+from hand import Hand
 from roles import Player
-from cards import Card, Hand
 
 def get_winner(players: list[Player], common_cards: list[Card], private_cards: list[list[Card]]) -> tuple[Player | None, Hand]:       
     player1 = players[0]
@@ -16,7 +17,6 @@ def get_winner(players: list[Player], common_cards: list[Card], private_cards: l
         return None, player1_hand
 
 # Intento para N Jugadores
-
 # def get_winner(players: list[Player], common_cards: list[Card], private_cards: list[list[Card]]) -> list[tuple[Player | None, Hand]]:
 #     players_hands = {}
 #     for player, private_card in zip(players, private_cards):
