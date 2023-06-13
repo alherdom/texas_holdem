@@ -129,7 +129,7 @@ class Hand:
     @property
     def cat_rank(self) -> str | tuple[str]:
         values = [card.value for card in self.hand]
-        values = sorted(values, key=lambda v: values.count(v), reverse=True)
+        values = sorted(values, key=lambda x: (-values.count(x), x))
         item1 = Card.SYMBOLS[values[0] - 1]
         if self.cat in [Hand.ONE_PAIR, Hand.THREE_OF_A_KIND, Hand.FOUR_OF_A_KIND]:
             return item1
@@ -139,7 +139,7 @@ class Hand:
         if self.cat == Hand.FULL_HOUSE:
             item2 = Card.SYMBOLS[values[3] - 1]
             return item1, item2
-        return Card.SYMBOLS[max(values) - 1]
+        return 'A' if 1 in values else Card.SYMBOLS[max(values) - 1]
         
 class HandIterator:
     def __init__(self, hand: Hand):
@@ -153,11 +153,5 @@ class HandIterator:
         self.counter += 1
         return item
     
-# new_hand = Hand([Card('K❤'), Card('K◆'), Card('3❤'), Card('3◆'), Card('A◆')])
-# new_hand = Hand([Card('A♠'), Card('A♣'), Card('Q♠'), Card('Q♣'), Card('J♣')])
-# print(new_hand.cat)
-# print(new_hand.cat_rank)
-# print(new_hand)
-# new_hand = Hand([Card('2♠'), Card('K◆'), Card('K❤'), Card('2♣'), Card('A◆')])
-# print(new_hand.cat)
-# print(new_hand.cat_rank)
+card = Card('A♣')
+print(card.cmp_value)
