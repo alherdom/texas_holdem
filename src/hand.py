@@ -33,7 +33,7 @@ class Hand:
     def is_full_house(self, values: list[int], len_set_values: int) -> bool:
         return len_set_values == 2 and values[0] != values[3]
 
-    def is_flush(slef, len_set_suits: int) -> bool:
+    def is_flush(self, len_set_suits: int) -> bool:
         return len_set_suits == 1
 
     def is_straight(self, values: list[int], len_set_values: int) -> bool:
