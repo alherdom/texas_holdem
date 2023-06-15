@@ -17,21 +17,22 @@ from roles import Player
 #         return None, player1_hand
 
 def get_winner(players: list[Player], common_cards: list[Card], private_cards: list[list[Card]]) -> list[tuple[Player | None, Hand]]:
+    first_player = players[0].private_cards, players[0].common_cards = private_cards[0], common_cards
+    best_hand = first_player.get_best_hand()
     players_hands = {}
     for player, private_card in zip(players, private_cards):
         player.private_cards, player.common_cards = private_card, common_cards
         players_hands[player] = player.get_best_hand()
     hands = [hand for hand in players_hands.values()]
     max_hand = max(hands)
-    winner_hands = hands.count(max_hand)
-    if winner_hands > 1:
-        return None, max_hand
     winner_player = [player for player, hand in players_hands.items() if hand == max_hand]
+    if len(winner_player) > 1:
+        return None, max_hand
     return winner_player[0], max_hand
 
 players = [Player('Player 1'), Player('Player 2')]
 common_cards = [Card('A❤'), Card('K◆'), Card('Q♣'), Card('9❤'), Card('3♣')]
 private_cards = [[Card('J◆'), Card('4◆')], [Card('J◆'), Card('4◆')]]
-# 'Player 1',
-# [Card('3◆'), Card('3♣'), Card('A❤'), Card('K◆'), Card('Q♣')]
 print(get_winner(players,common_cards, private_cards))
+# # 'Player 1',
+# # [Card('3◆'), Card('3♣'), Card('A❤'), Card('K◆'), Card('Q♣')]
